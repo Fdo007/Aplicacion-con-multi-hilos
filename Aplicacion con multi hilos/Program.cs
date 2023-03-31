@@ -15,11 +15,12 @@ namespace MultihilosConteoTempFib
             Thread T2 = new Thread (CuentaArriva);
 
             Console.WriteLine(hiloPrincipal.Name + " inicia los conteos:");
+          
+            ImprimirResultados();
 
-            T1.Start();
-            T2.Start();
-
+            Console.WriteLine("Programa terminado.");
             Console.ReadKey();
+
         }
         public static void FibonacciConteo(int len)
         {
@@ -45,6 +46,35 @@ namespace MultihilosConteoTempFib
             }
             Console.WriteLine("El temporizador a terminado.");
         }
+        public static void ImprimirResultados()
+        {
+            bool repetir = true;
+            while (repetir)
+            {
+                // Ejecutar los conteos
+                Thread T1 = new Thread(() => FibonacciConteo(10));
+                Thread T2 = new Thread(CuentaArriva);
+
+                Console.WriteLine("Iniciando los conteos:");
+
+                T1.Start();
+                T2.Start();
+
+                // Esperar a que terminen los conteos
+                T1.Join();
+                T2.Join();
+
+                // Preguntar al usuario si quiere repetir
+                Console.WriteLine("¿Desea volver a imprimir los resultados? (S/N)");
+                string respuesta = Console.ReadLine();
+
+                if (respuesta.ToUpper() != "S")
+                {
+                    repetir = false;
+                }
+            }
+        }
+
     }
 }
 
