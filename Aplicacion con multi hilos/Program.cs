@@ -46,13 +46,31 @@ namespace MultihilosConteoTempFib
             bool repetir = true;
             while (repetir)
             {
-                // Pregunta al usuario la cantidad de numeros fibonacci
-                Console.WriteLine("Ingrese la cantidad de números Fibonacci a imprimir:");
-                int cantidadFibonacci = int.Parse(Console.ReadLine());
+                int cantidadFibonacci;
+                bool entradaValida;
+                do
+                {
+                    // Pregunta al usuario la cantidad de numeros
+                    Console.WriteLine("Ingrese la cantidad de números Fibonacci a imprimir:");
+                    entradaValida = int.TryParse(Console.ReadLine(), out cantidadFibonacci);
+                    // Valida si el usuario puso un numero
+                    if (!entradaValida)
+                    {
+                        Console.WriteLine("La entrada no es un número válido. Inténtelo de nuevo.");
+                    }
+                } while (!entradaValida);
 
-                // Pregunta al usuario la cantidad de segundos
-                Console.WriteLine("Ingrese la cantidad de segundos a contar:");
-                int cantidadSegundos = int.Parse(Console.ReadLine());
+                int cantidadSegundos;
+                do
+                {
+                    // Pregunta al usuario la cantidad de segundos
+                    Console.WriteLine("Ingrese la cantidad de segundos a contar:");
+                    entradaValida = int.TryParse(Console.ReadLine(), out cantidadSegundos);
+                    if (!entradaValida)
+                    {
+                        Console.WriteLine("La entrada no es un número válido. Inténtelo de nuevo.");
+                    }
+                } while (!entradaValida);
 
                 // Ejecucion de los conteos
                 Thread T1 = new Thread(() => FibonacciConteo(cantidadFibonacci));
